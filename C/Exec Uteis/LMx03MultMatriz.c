@@ -3,8 +3,6 @@
 #define LINHA 3   // definindo linhas da matriz PRODUTO
 #define COLUNA 5  // definindo colunas da matriz PRODUTO
 #define REGRA 4
-#define MAX_LIN 9
-#define MAX_COL 9
 // Para mult. matrizes a qntd de colunas de A deve ser igual a qntd de linhas de B
 // Um matriz C=A*B terá a qntd de linhas de A e a qntd de colunas de B
 
