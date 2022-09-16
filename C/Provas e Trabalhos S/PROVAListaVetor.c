@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct cell{
+struct cell {
     int vetor[3];
     struct cell *prox;
 };
@@ -14,7 +14,7 @@ void compactarLista(celula **ini, int cont);
 void escreverLista(celula *ini);
 int removerCelula(celula **ini);
 
-void main(){
+void main() {
     celula *inicio;
     inicio = NULL;
     int valor, valor2, valor3;
@@ -23,14 +23,12 @@ void main(){
     int contInsere = 0;
     int contCompacta = 0;
 
-
-    while(op != 5){
+    while (op != 5) {
         op = menu();
-        switch(op){
-
-            case 1: //Inserir elemento
+        switch (op) {
+            case 1:  // Inserir elemento
                 contInsere++;
-                if(contInsere == 3){
+                if (contInsere == 3) {
                     contInsere = 0;
                 }
                 printf("\nInforme os TRES elementos que deseja inserir: ");
@@ -38,74 +36,73 @@ void main(){
                 inserirElemento(&inicio, valor, valor2, valor3, contInsere);
                 break;
 
-            case 2:  //Remover elemento
+            case 2:  // Remover elemento
                 printf("\nInforme o elemento que deseja remover: ");
                 scanf("%d", &valor);
                 retorno = removerElemento(&inicio, valor);
-                if(retorno == 1){
+                if (retorno == 1) {
                     printf("\nCONTEUDO REMOVIDO!!\n");
-                }else
-                    if(retorno == 0){
-                        printf("\nCONTEUDO NAO ENCONTRADO!!\n");
-                    }  
+                } else if (retorno == 0) {
+                    printf("\nCONTEUDO NAO ENCONTRADO!!\n");
+                }
                 break;
 
-            case 3:  //Compactar
+            case 3:  // Compactar
                 contCompacta++;
-                if(contCompacta == 3){
+                if (contCompacta == 3) {
                     contCompacta = 0;
                 }
                 printf("\nLista ANTES de Compactar:\n");
                 escreverLista(inicio);
 
-                compactarLista(&inicio, contCompacta);    
-                printf("\nLista DEPOIS de Compactar:\n");  
+                compactarLista(&inicio, contCompacta);
+                printf("\nLista DEPOIS de Compactar:\n");
                 escreverLista(inicio);
                 break;
- 
-            case 4:  //Listar
+
+            case 4:  // Listar
                 printf("\n|****LISTA****|\n");
-                escreverLista(inicio);      
+                escreverLista(inicio);
                 break;
 
-            case 5:  //Sair
+            case 5:  // Sair
                 break;
 
             default:
                 printf("\nOPCAO INCORRETA!!!");
-                break;        
+                break;
         }
     }
 }
 
-int menu(void){
+int menu(void) {
     int op;
     printf("\n|1| - Inserir elemento\n");
     printf("|2| - Remover elemento\n");
     printf("|3| - Compactar lista\n");
     printf("|4| - Escrever lista\n");
     printf("|5| - Sair\n");
-        printf(">> ");
-        scanf("%d", &op);
-        return (op);    
+    printf(">> ");
+    scanf("%d", &op);
+    return (op);
 }
 
-void inserirElemento(celula **ini, int valor1, int valor2, int valor3, int cont){
-    int i = cont-1, j;
+void inserirElemento(celula **ini, int valor1, int valor2, int valor3, int cont) {
+    int i = cont - 1, j;
     celula *aux;
 
-    aux = (celula*)malloc (sizeof(celula));
-    for(j=0; j<3; j++){
+    aux = (celula *)malloc(sizeof(celula));
+    for (j = 0; j < 3; j++) {
         aux->vetor[j] = '\0';
     }
-    
-    if(aux->vetor[i] != '\0'){
+
+    if (aux->vetor[i] != '\0') {
         aux->vetor[0] = valor1;
         aux->vetor[1] = valor2;
         aux->vetor[2] = valor3;
-    }else{
-        aux = (celula*)malloc (sizeof(celula));
-        for(j=0; j<3; j++){
+    } else {
+        aux = (celula *)malloc(sizeof(celula));
+        for (j = 0; j < 3; j++) {
             aux->vetor[j] = '\0';
         }
         aux->vetor[0] = valor1;
@@ -114,8 +111,7 @@ void inserirElemento(celula **ini, int valor1, int valor2, int valor3, int cont)
     }
     aux->prox = NULL;
 
-
-    if(*ini != NULL){
+    if (*ini != NULL) {
         aux->prox = *ini;
     }
     *ini = aux;
@@ -123,84 +119,83 @@ void inserirElemento(celula **ini, int valor1, int valor2, int valor3, int cont)
     return;
 }
 
-int removerElemento(celula **ini, int valor){
+int removerElemento(celula **ini, int valor) {
     int i = 0;
-    if(*ini == NULL){
+    if (*ini == NULL) {
         printf("\nA lista esta vazia.\n");
         return (-1);
-    }else{
+    } else {
         celula *aux, *ant = NULL;
         aux = *ini;
 
-        while((aux->vetor[i] != valor)){
-                ant = aux;
-                if(i < 3){
-                    i++;
-                }else if(i == 3){
-                    i = 0;   
-                    aux = aux->prox; 
-                }
+        while ((aux->vetor[i] != valor)) {
+            ant = aux;
+            if (i < 3) {
+                i++;
+            } else if (i == 3) {
+                i = 0;
+                aux = aux->prox;
+            }
         }
 
-        if(aux->vetor[i] == valor){
+        if (aux->vetor[i] == valor) {
             aux->vetor[i] = '\0';
-             
-            if(aux->vetor[0] == '\0' && aux->vetor[1] == '\0' && aux->vetor[2] == '\0'){
-                if(aux == *ini){
+
+            if (aux->vetor[0] == '\0' && aux->vetor[1] == '\0' && aux->vetor[2] == '\0') {
+                if (aux == *ini) {
                     *ini = (*ini)->prox;
-                }else
+                } else
                     ant->prox = aux->prox;
 
                 free(aux);
                 printf("\nCELULA REMOVIDA POR ESTAR VAZIA!\n");
             }
-
         }
         return (1);
     }
     return (0);
 }
 
-void compactarLista(celula **ini, int cont){
+void compactarLista(celula **ini, int cont) {
     int i, cont2;
     cont2 = cont;
     celula *aux;
     celula *aux2;
     aux = *ini;
-    if(aux == NULL){
+    if (aux == NULL) {
         return;
     }
-    while(aux->prox != NULL){
-        while((cont != 3) && (aux->prox != NULL)){
+    while (aux->prox != NULL) {
+        while ((cont != 3) && (aux->prox != NULL)) {
             aux2 = aux->prox;
             aux->vetor[cont] = aux2->vetor[0];
-            for(i=0; i<cont; i++){
-                aux->vetor[i] = aux->vetor[i+1];
+            for (i = 0; i < cont; i++) {
+                aux->vetor[i] = aux->vetor[i + 1];
             }
             cont2--;
             cont++;
-            if(cont2 == 0){
+            if (cont2 == 0) {
                 aux->prox = aux2->prox;
             }
         }
         aux = aux->prox;
-        if(aux == NULL){
+        if (aux == NULL) {
             break;
         }
     }
 }
 
-void escreverLista(celula *ini){
+void escreverLista(celula *ini) {
     celula *aux;
     aux = ini;
     int i;
-    if(aux == NULL){
+    if (aux == NULL) {
         printf("\nLista Vazia!!");
-        return ;
-    }else{
-        while(aux != NULL){
+        return;
+    } else {
+        while (aux != NULL) {
             printf("( ");
-            for(i=0; i<3; i++){
+            for (i = 0; i < 3; i++) {
                 printf("%d ", aux->vetor[i]);
             }
             printf(")\n");

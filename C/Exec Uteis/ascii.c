@@ -6,7 +6,7 @@ int main(){
 
     while(ascii < 127){
         printf("%c\n", ascii);
-    ascii++;
+        ascii++;
     }
 
     return 0;
