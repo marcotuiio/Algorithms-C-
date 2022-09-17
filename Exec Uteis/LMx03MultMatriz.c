@@ -6,33 +6,33 @@
 // Para mult. matrizes a qntd de colunas de A deve ser igual a qntd de linhas de B
 // Um matriz C=A*B terá a qntd de linhas de A e a qntd de colunas de B
 
-void mult(int a[3][4], int b[4][5]);
+void mult(int a[LINHA][REGRA], int b[REGRA][COLUNA]);
 void escreveMatriz(int lin, int col, int matriz[lin][col]);
 
 void main() {
     int i, j;
-    int A[3][4], B[4][5];
+    int A[LINHA][REGRA], B[REGRA][COLUNA];
 
     FILE* fp;
     fp = fopen("LMx03mz.txt", "r");
 
-    for (i = 0; i < 3; i++) {
-        for (j = 0; j < 4; j++) {
+    for (i = 0; i < LINHA; i++) {
+        for (j = 0; j < REGRA; j++) {
             fscanf(fp, "%d", &A[i][j]);
         }
     }
-    for (i = 0; i < 4; i++) {
-        for (j = 0; j < 5; j++) {
+    for (i = 0; i < REGRA; i++) {
+        for (j = 0; j < COLUNA; j++) {
             fscanf(fp, "%d", &B[i][j]);
         }
     }
     fclose(fp);
 
     printf("Matriz A: \n");
-    escreveMatriz(3, 4, A);
+    escreveMatriz(LINHA, REGRA, A);
     printf("\n");
     printf("Matriz B: \n");
-    escreveMatriz(4, 5, B);
+    escreveMatriz(REGRA, COLUNA, B);
     printf("\n");
     printf("C = A x B: \n");
     mult(A, B);
@@ -48,7 +48,7 @@ void escreveMatriz(int lin, int col, int matriz[lin][col]) {
     }
 }
 
-void mult(int a[3][4], int b[4][5]) {
+void mult(int a[LINHA][REGRA], int b[REGRA][COLUNA]) {
     int i, j, soma, n;
     int C[LINHA][COLUNA];
     soma = 0;
@@ -63,5 +63,5 @@ void mult(int a[3][4], int b[4][5]) {
         }
     }
 
-    escreveMatriz(3, 5, C);
+    escreveMatriz(LINHA, COLUNA, C);
 }
